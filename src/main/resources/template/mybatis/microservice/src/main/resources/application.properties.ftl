@@ -1,0 +1,20 @@
+spring.datasource.name=${artifactId}
+spring.datasource.url=jdbc:mysql://${dbHost}:${dbPort}/${dbSchema}?useUnicode=true&characterEncoding=${dbEncode}&useSSL=false&autoReconnect=true&allowMultiQueries=true
+spring.datasource.username=${dbUserName}
+spring.datasource.password=${dbPassword}
+spring.datasource.type=com.alibaba.druid.pool.DruidDataSource
+spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+spring.datasource.filters=stat
+spring.datasource.maxActive=20
+spring.datasource.initialSize=1
+spring.datasource.maxWait=60000
+spring.datasource.minIdle=1
+spring.datasource.timeBetweenEvictionRunsMillis=60000
+spring.datasource.minEvictableIdleTimeMillis=300000
+spring.datasource.validationQuery=select 'x'
+spring.datasource.testWhileIdle=true
+spring.datasource.testOnBorrow=false
+spring.datasource.testOnReturn=false
+spring.datasource.poolPreparedStatements=true
+spring.datasource.maxOpenPreparedStatements=20
+logging.level.com.anjuxing.com.anjuxing.platform=DEBUG

@@ -28,11 +28,9 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public JsonResult jsonErrorHandler(HttpServletRequest req, BaseException e) throws Exception {
         JsonResult jsonResult = new JsonResult();
-        jsonResult.setStatus(JsonResult.NORMAL);
         jsonResult.setResult(JsonResult.FAILURE);
         jsonResult.setCode(e.getCode());
         jsonResult.setMessage(e.getMessage()); //根据异常代码表转成相应的文字
-        //jsonResult.setData(req.getRequestURL());
         return jsonResult;
     }
 

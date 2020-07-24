@@ -7,7 +7,6 @@ import java.util.Date;
     </#if>
 </#list>
 
-import com.anjuxing.platform.common.base.User;
 import com.anjuxing.platform.common.base.ValidateData;
 import com.anjuxing.platform.common.crud.CrudModel;
 import com.anjuxing.platform.common.util.CodeUtils;
@@ -129,20 +128,6 @@ public class ${entityName} extends CrudModel<${entityName}> {
         ValidateData valid = new ValidateData();
         StringBuffer msg = new StringBuffer();
         boolean status = true;
-<#list columnList as column>
-    <#if column.isNullable == "NO">
-        if (ValidateUtils.isEmpty(this.${column.feildName})) {
-            status = false;
-            msg.append("${column.columnComment}不能为空！\n");
-        }
-    </#if>
-    <#if column.feildType == "String">
-        if (ValidateUtils.length(this.${column.feildName}) > ${column.characterMaximumLength}) {
-            status = false;
-            msg.append("${column.columnComment}最大长度为${column.characterMaximumLength}字符!\n");
-        }
-    </#if>
-</#list>
         valid.setStatus(status);
         valid.setMessage(msg.toString());
         return valid;
@@ -152,35 +137,9 @@ public class ${entityName} extends CrudModel<${entityName}> {
      * 插入数据之前执行方法，需要手动调用
      */
     @Override
-    public void preInsert(User user) {
+    public void preInsert() {
         if (ValidateUtils.isEmpty(this.id)) {
             this.id = CodeUtils.getUUID();
-        }
-<#list columnList as column>
-    <#if column.feildName == "status">
-        this.status = STATUS_VALID;
-    </#if>
-    <#if column.feildName == "flag">
-        this.flag = FLAG_NORMAL;
-    </#if>
-    <#if column.feildName == "sortno">
-        if (ValidateUtils.isEmpty(this.sortno)) {
-            this.sortno = 0;
-        }
-    </#if>
-    <#if column.feildName == "recordTime">
-        this.recordTime = DateUtils.getCurrentTime();
-    </#if>
-</#list>
-        if (user != null) {
-<#list columnList as column>
-    <#if column.feildName == "recordPerson">
-            this.recordPerson = user.getId();
-    </#if>
-    <#if column.feildName == "recordDepart">
-            this.recordDepart = user.getDepart();
-    </#if>
-</#list>
         }
     }
 
@@ -188,20 +147,8 @@ public class ${entityName} extends CrudModel<${entityName}> {
      * 更新数据之前执行方法，需要手动调用
      */
     @Override
-    public void preUpdate(User user) {
-        if (user != null) {
-    <#list columnList as column>
-        <#if column.feildName == "recordPerson">
-            this.recordPerson = user.getId();
-        </#if>
-        <#if column.feildName == "recordDepart">
-            this.recordDepart = user.getDepart();
-        </#if>
-        <#if column.feildName == "recordTime">
-            this.recordTime = DateUtils.getCurrentTime();
-        </#if>
-    </#list>
-        }
+    public void preUpdate() {
+
     }
 
     /**
@@ -209,20 +156,8 @@ public class ${entityName} extends CrudModel<${entityName}> {
      * @param user
      */
     @Override
-    public void preCancel(User user) {
-        if (user != null) {
-    <#list columnList as column>
-        <#if column.feildName == "recordPerson">
-            this.recordPerson = user.getId();
-        </#if>
-        <#if column.feildName == "recordDepart">
-            this.recordDepart = user.getDepart();
-        </#if>
-        <#if column.feildName == "recordTime">
-            this.recordTime = DateUtils.getCurrentTime();
-        </#if>
-    </#list>
-        }
+    public void preCancel() {
+
     }
 
     @Override
